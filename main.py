@@ -1,11 +1,11 @@
+import os
 from datetime import date
 import random
 import discord
 from discord.ext import commands
 from discord_slash import SlashCommand, SlashContext
 
-TOKEN = 
-SERVER_ID = 
+SERVER_ID = 636164373970157578
 
 client = commands.Bot(command_prefix='!')
 slash = SlashCommand(client, sync_commands=True)
@@ -48,7 +48,7 @@ piwa = [
 ]
 
 
-@slash.slash(name="Piwo", description="Piwo dnia", guild_ids=[SERVER_ID])
+@slash.slash(name="Piwo", description="Piwo dnia i Piwo miesiąca", guild_ids=[SERVER_ID])
 async def guess(ctx: SlashContext):
     date_tuple = date.today().timetuple()
     random.seed(date_tuple[1]+date_tuple[2])
@@ -83,4 +83,4 @@ async def on_ready():
     print("BOT RUNNING...")
 
 
-client.run(TOKEN)
+client.run(os.getenv('DISCORD_TOKEN'))
