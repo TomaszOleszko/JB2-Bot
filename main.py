@@ -4,8 +4,8 @@ import discord
 from discord.ext import commands
 from discord_slash import SlashCommand, SlashContext
 
-TOKEN = "NjkyMTI1NTg4MTcyOTYzOTMw.Xnp-Lw.k2xuz9FJph0qg5uV-QKux4_AReI"
-SERVER_ID = 636164373970157578
+TOKEN = 
+SERVER_ID = 
 
 client = commands.Bot(command_prefix='!')
 slash = SlashCommand(client, sync_commands=True)
