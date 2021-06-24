@@ -53,7 +53,10 @@ async def guess(ctx: SlashContext):
     date_tuple = date.today().timetuple()
     random.seed(date_tuple[1]+date_tuple[2])
     rand = random.choice(piwa)
+    random.seed(date_tuple[1])
+    rand1 = random.choice(piwa)
     await ctx.send(content=f"Piwo dnia --> {rand[0]}", file=discord.File(rand[1]))
+    await ctx.send(content=f"Piwo miesiąca --> {rand1[0]}", file=discord.File(rand1[1]))
 
 
 @slash.slash(name="zdam", description="Zdam czy nie zdam?", guild_ids=[SERVER_ID])
