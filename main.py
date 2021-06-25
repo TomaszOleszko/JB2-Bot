@@ -5,10 +5,10 @@ import discord
 from discord.ext import commands
 from discord_slash import SlashCommand, SlashContext
 
-
 SERVER_ID = 636164373970157578
 
-client = commands.Bot(command_prefix='!')
+intents = discord.Intents.all()
+client = discord.Client(intents=intents)
 slash = SlashCommand(client, sync_commands=True)
 
 options = [
@@ -61,9 +61,16 @@ piwa = [
         'piwa/Carlsberg.png'
     )
 ]
+emojis = {
+    "pepeclown": "Rust",
+    "pepeOK": "rocket",
+    "pepeStab": "CSGO",
+    "PepeYikes": "lol",
+    "irizchuPat": "the simsy cztery"
+}
 
 
-@slash.slash(name="Piwo", description="Piwo dnia i Piwo miesiąca", guild_ids=[SERVER_ID],options=options1)
+@slash.slash(name="Piwo", description="Piwo dnia i Piwo miesiąca", guild_ids=[SERVER_ID], options=options1)
 async def guess(ctx: SlashContext, dzien=True, miesiac=False):
     date_tuple = date.today().timetuple()
     if not dzien and not miesiac:
@@ -95,6 +102,47 @@ async def _test(ctx: SlashContext):
 async def guess(ctx: SlashContext, start=0, stop=10):
     rand = random.randint(start, stop)
     await ctx.send(content=f"Losu Losu --> {rand}")
+
+
+@client.event
+async def on_raw_reaction_add(payload):
+    message_id = payload.message_id
+    if message_id == 857969748931248159:
+        guild_id = payload.guild_id
+        guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
+        role = discord.utils.get(guild.roles, name=emojis.get(payload.emoji.name))
+        if role is not None:
+            member = payload.member
+            if member is not None:
+                await member.add_roles(role)
+                print("Użytkownik:", end=" ")
+                print(member, end=" ")
+                print("dodał rolę:", end=" ")
+                print(role)
+            else:
+                print("member not found")
+        else:
+            print("role not found")
+
+
+@client.event
+async def on_raw_reaction_remove(payload):
+    message_id = payload.message_id
+    if message_id == 857969748931248159:
+        guild = client.get_guild(payload.guild_id)
+        role = discord.utils.get(guild.roles, name=emojis.get(payload.emoji.name))
+        if role is not None:
+            member = guild.get_member(payload.user_id)
+            if member is not None:
+                await member.remove_roles(role)
+                print("Użytkownik:", end=" ")
+                print(member, end=" ")
+                print("USUNĄŁ rolę:", end=" ")
+                print(role)
+            else:
+                print("member not found")
+        else:
+            print("role not found")
 
 
 @client.event
