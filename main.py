@@ -5,7 +5,6 @@ import discord
 from discord.ext import commands
 from discord_slash import SlashCommand, SlashContext
 
-
 SERVER_ID = 636164373970157578
 
 client = commands.Bot(command_prefix='!')
@@ -64,12 +63,13 @@ piwa = [
 emojis = {
     "pepeclown": "Rust",
     "pepeOK": "rocket",
-    "pepeStab" : "CSGO",
-    "PepeYikes" : "lol",
+    "pepeStab": "CSGO",
+    "PepeYikes": "lol",
     "irizchuPat": "the simsy cztery"
 }
 
-@slash.slash(name="Piwo", description="Piwo dnia i Piwo miesiąca", guild_ids=[SERVER_ID],options=options1)
+
+@slash.slash(name="Piwo", description="Piwo dnia i Piwo miesiąca", guild_ids=[SERVER_ID], options=options1)
 async def guess(ctx: SlashContext, dzien=True, miesiac=False):
     date_tuple = date.today().timetuple()
     if not dzien and not miesiac:
@@ -102,26 +102,26 @@ async def guess(ctx: SlashContext, start=0, stop=10):
     rand = random.randint(start, stop)
     await ctx.send(content=f"Losu Losu --> {rand}")
 
+
 @client.event
 async def on_raw_reaction_add(payload):
     message_id = payload.message_id
     if message_id == 857969748931248159:
         guild_id = payload.guild_id
-        guild = discord.utils.find(lambda g : g.id == guild_id, client.guilds)
+        guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
         role = discord.utils.get(guild.roles, name=emojis.get(payload.emoji.name))
         if role is not None:
             member = payload.member
             if member is not None:
                 await member.add_roles(role)
-                print("Użytkownik:",end=" ")
-                print(member,end=" ")
-                print("dodał rolę:",end=" ")
+                print("Użytkownik:", end=" ")
+                print(member, end=" ")
+                print("dodał rolę:", end=" ")
                 print(role)
             else:
                 print("member not found")
         else:
             print("role not found")
-
 
 
 @client.event
@@ -142,6 +142,7 @@ async def on_raw_reaction_remove(payload):
                 print("member not found")
         else:
             print("role not found")
+
 
 @client.event
 async def on_ready():
