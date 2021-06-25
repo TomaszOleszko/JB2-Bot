@@ -42,23 +42,23 @@ options1 = [
 piwa = [
     (
         'Kozel',
-        'piwa/Kozel_lezak.png'
+        'piwa/Kozel.png'
     ),
     (
         'Zatecki',
-        'piwa/zatecky-svetly-lezak.jpg'
+        'piwa/zatecky.jpeg'
     ),
     (
         'Namyslow',
-        'piwa/namyslow-butelka.jpg'
+        'piwa/namyslow.png'
     ),
     (
         'Warka',
-        'piwa/Warka-classic_but_OK.png'
+        'piwa/Warka.png'
     ),
     (
         'Calsberg',
-        'piwa/67746.jpg'
+        'piwa/Carlsberg.png'
     )
 ]
 
@@ -76,10 +76,6 @@ async def guess(ctx: SlashContext, dzien=True, miesiac=False):
         random.seed(date_tuple[1])
         rand = random.choice(piwa)
         await ctx.send(content=f"Piwo miesiąca --> {rand[0]}", file=discord.File(rand[1]))
-
-
-
-
 
 
 @slash.slash(name="zdam", description="Zdam czy nie zdam?", guild_ids=[SERVER_ID])
