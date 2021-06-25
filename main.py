@@ -7,7 +7,8 @@ from discord_slash import SlashCommand, SlashContext
 
 SERVER_ID = 636164373970157578
 
-client = commands.Bot(command_prefix='!')
+intents = discord.Intents.all()
+client = discord.Client(intents=intents)
 slash = SlashCommand(client, sync_commands=True)
 
 options = [
