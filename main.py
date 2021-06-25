@@ -24,6 +24,20 @@ options = [
         "required": False,
     }
 ]
+options1 = [
+    {
+        "name": "dzien",
+        "description": "Piwo dnia",
+        "type": 5,
+        "required": False,
+    },
+    {
+        "name": "miesiac",
+        "description": "Piwo miesiace",
+        "type": 5,
+        "required": False,
+    }
+]
 piwa = [
     (
         'Kozel',
@@ -48,15 +62,23 @@ piwa = [
 ]
 
 
-@slash.slash(name="Piwo", description="Piwo dnia i Piwo miesiąca", guild_ids=[SERVER_ID])
-async def guess(ctx: SlashContext):
+@slash.slash(name="Piwo", description="Piwo dnia i Piwo miesiąca", guild_ids=[SERVER_ID],options=options1)
+async def guess(ctx: SlashContext, dzien=True, miesiac=False):
     date_tuple = date.today().timetuple()
-    random.seed(date_tuple[1]+date_tuple[2])
-    rand = random.choice(piwa)
-    random.seed(date_tuple[1])
-    rand1 = random.choice(piwa)
-    await ctx.send(content=f"Piwo dnia --> {rand[0]}", file=discord.File(rand[1]))
-    await ctx.send(content=f"Piwo miesiąca --> {rand1[0]}", file=discord.File(rand1[1]))
+    if not dzien and not miesiac:
+        await ctx.send(content="Brak piwska")
+    if dzien:
+        random.seed(date_tuple[1] + date_tuple[2])
+        rand = random.choice(piwa)
+        await ctx.send(content=f"Piwo dnia --> {rand[0]}", file=discord.File(rand[1]))
+    if miesiac:
+        random.seed(date_tuple[1])
+        rand = random.choice(piwa)
+        await ctx.send(content=f"Piwo miesiąca --> {rand[0]}", file=discord.File(rand[1]))
+
+
+
+
 
 
 @slash.slash(name="zdam", description="Zdam czy nie zdam?", guild_ids=[SERVER_ID])
