@@ -5,7 +5,7 @@ import discord
 from discord.ext import commands
 from discord_slash import SlashCommand, SlashContext
 
-#aha
+
 SERVER_ID = 636164373970157578
 
 client = commands.Bot(command_prefix='!')
