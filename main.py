@@ -72,18 +72,15 @@ emojis = {
 
 @slash.slash(name="Piwo", description="Piwo dnia i Piwo miesiąca", guild_ids=[SERVER_ID], options=options1)
 async def guess(ctx: SlashContext, dzien=True, miesiac=False):
-    zmiennaA = random.randint(0,1990)
-    zmiennaB = random.randint(0,1990)
-    zmiennaC = random.randint(zmiennaA, zmiennaB)
     date_tuple = date.today().timetuple()
     if not dzien and not miesiac:
         await ctx.send(content="Brak piwska")
     if dzien:
-        random.seed(zmiennaC*(zmiennaC*date_tuple[1] + zmiennaB*date_tuple[2]))
+        random.seed(date_tuple[1]*100 + date_tuple[2]*50)
         rand = random.choice(piwa)
         await ctx.send(content=f"Piwo dnia --> {rand[0]}", file=discord.File(rand[1]))
     if miesiac:
-        random.seed(zmiennaC*date_tuple[1])
+        random.seed(date_tuple[1]*1000)
         rand = random.choice(piwa)
         await ctx.send(content=f"Piwo miesiąca --> {rand[0]}", file=discord.File(rand[1]))
 
