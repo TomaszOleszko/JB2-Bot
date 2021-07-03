@@ -70,7 +70,8 @@ emojis = {
 }
 zdam = [
     "  <:trolldog:801043177603727450>\n /|\ \n /\ \nZAPRASZAMY W NASTĘPNYM ROKU...",
-    "\  <:dogekek:801043201628700682> /\n     |\n   /\ \nJEDNAK NIEZDAJ JEST MIŁOSIERNY... TYM RAZEM..."]
+    "\  <:dogekek:801043201628700682> /\n     |\n   /\ \nJEDNAK NIEZDAJ JEST MIŁOSIERNY... TYM RAZEM..."
+]
 
 
 @slash.slash(name="Piwo", description="Piwo dnia i Piwo miesiąca", guild_ids=[SERVER_ID], options=options1)
