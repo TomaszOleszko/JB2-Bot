@@ -68,6 +68,9 @@ emojis = {
     "PepeYikes": "lol",
     "irizchuPat": "the simsy cztery"
 }
+zdam = [
+    "  <:trolldog:801043177603727450>\n /|\ \n /\ \nZAPRASZAMY W NASTĘPNYM ROKU...",
+    "  <:dogekek:801043201628700682> /\n     |\n   /\ \nJEDNAK NIEZDAJ JEST MIŁOSIERNY... TYM RAZEM..."]
 
 
 @slash.slash(name="Piwo", description="Piwo dnia i Piwo miesiąca", guild_ids=[SERVER_ID], options=options1)
@@ -76,26 +79,19 @@ async def guess(ctx: SlashContext, dzien=True, miesiac=False):
     if not dzien and not miesiac:
         await ctx.send(content="Brak piwska")
     if dzien:
-        random.seed(date_tuple[1]*100 + date_tuple[2]*50)
+        random.seed(date_tuple[1] * 100 + date_tuple[2] * 50)
         rand = random.choice(piwa)
         await ctx.send(content=f"Piwo dnia --> {rand[0]}", file=discord.File(rand[1]))
     if miesiac:
-        random.seed(date_tuple[1]*1000)
+        random.seed(date_tuple[1] * 1000)
         rand = random.choice(piwa)
         await ctx.send(content=f"Piwo miesiąca --> {rand[0]}", file=discord.File(rand[1]))
 
 
 @slash.slash(name="zdam", description="Zdam czy nie zdam?", guild_ids=[SERVER_ID])
 async def _test(ctx: SlashContext):
-    if bool(random.getrandbits(1)):
-        embed = discord.Embed(title="ZDAJ CZY NIEZDAJ, OTO JEST PYTANIE...\n  <:trolldog:801043177603727450>\n /|\ \n  "
-                                    "/\ \nZAPRASZAMY W NASTĘPNYM ROKU...")
-    else:
-        embed = discord.Embed(
-            title="ZDAJ CZY NIEZDAJ, OTO JEST PYTANIE...\n\ <:dogekek:801043201628700682> /\n     |\n   /\ \nJEDNAK "
-                  "NIEZDAJ JEST MIŁOSIERNY... TYM RAZEM...")
-
-    await ctx.send(content="zdam", embed=embed)
+    await ctx.send(content="zdam",
+                   embed=discord.Embed(title="ZDAJ CZY NIEZDAJ, OTO JEST PYTANIE...\n" + (random.choice(zdam))))
 
 
 @slash.slash(name="Losu", description="Losowanko liczby", guild_ids=[SERVER_ID], options=options)
