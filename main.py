@@ -1,5 +1,6 @@
 import os
 import random
+import json
 from datetime import date
 
 import discord
@@ -72,7 +73,8 @@ zdam = [
     "  <:trolldog:801043177603727450>\n /|\ \n /\ \nZAPRASZAMY W NASTĘPNYM ROKU...",
     "\  <:dogekek:801043201628700682> /\n     |\n   /\ \nJEDNAK NIEZDAJ JEST MIŁOSIERNY... TYM RAZEM..."
 ]
-
+with open('Data/config.json',encoding="utf8") as f:
+  data = json.load(f)
 
 @slash.slash(name="Piwo", description="Piwo dnia i Piwo miesiąca", guild_ids=[SERVER_ID], options=options1)
 async def guess(ctx: SlashContext, dzien=True, miesiac=False):
@@ -92,7 +94,7 @@ async def guess(ctx: SlashContext, dzien=True, miesiac=False):
 @slash.slash(name="zdam", description="Zdam czy nie zdam?", guild_ids=[SERVER_ID])
 async def _test(ctx: SlashContext):
     await ctx.send(content="zdam",
-                   embed=discord.Embed(title="ZDAJ CZY NIEZDAJ, OTO JEST PYTANIE...\n" + (random.choice(zdam))))
+                   embed=discord.Embed(title="ZDAJ CZY NIEZDAJ, OTO JEST PYTANIE...\n" + (random.choice(data["zdam_message_content"]))))
 
 
 @slash.slash(name="Losu", description="Losowanko liczby", guild_ids=[SERVER_ID], options=options)
