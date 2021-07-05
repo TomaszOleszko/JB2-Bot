@@ -83,12 +83,12 @@ async def guess(ctx: SlashContext, dzien=True, miesiac=False):
         await ctx.send(content="Brak piwska")
     if dzien:
         random.seed(date_tuple[1] * 100 + date_tuple[2] * 50)
-        rand = random.choice(piwa)
-        await ctx.send(content=f"Piwo dnia --> {rand[0]}", file=discord.File(rand[1]))
+        piwo = random.choice(data["piwa"])
+        await ctx.send(content=f"Piwo dnia --> "+os.path.splitext(piwo)[0], file=discord.File("piwa/"+piwo))
     if miesiac:
         random.seed(date_tuple[1] * 1000)
-        rand = random.choice(piwa)
-        await ctx.send(content=f"Piwo miesiąca --> {rand[0]}", file=discord.File(rand[1]))
+        piwo = random.choice(data["piwa"])
+        await ctx.send(content=f"Piwo miesiąca --> "+os.path.splitext(piwo)[0], file=discord.File("piwa/"+piwo))
 
 
 @slash.slash(name="zdam", description="Zdam czy nie zdam?", guild_ids=[SERVER_ID])
