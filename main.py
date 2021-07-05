@@ -12,14 +12,6 @@ intents = discord.Intents.all()
 client = discord.Client(intents=intents)
 slash = SlashCommand(client, sync_commands=True)
 
-emojis = {
-    "pepeclown": "Rust",
-    "pepeOK": "rocket",
-    "pepeStab": "CSGO",
-    "PepeYikes": "lol",
-    "irizchuPat": "the simsy cztery"
-}
-
 with open('Data/config.json',encoding="utf8") as f:
   data = json.load(f)
 
@@ -56,7 +48,7 @@ async def on_raw_reaction_add(payload):
     if message_id == 857969748931248159:
         guild_id = payload.guild_id
         guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
-        role = discord.utils.get(guild.roles, name=emojis.get(payload.emoji.name))
+        role = discord.utils.get(guild.roles, name=data["emojis"].get(payload.emoji.name))
         if role is not None:
             member = payload.member
             if member is not None:
@@ -76,7 +68,7 @@ async def on_raw_reaction_remove(payload):
     message_id = payload.message_id
     if message_id == 857969748931248159:
         guild = client.get_guild(payload.guild_id)
-        role = discord.utils.get(guild.roles, name=emojis.get(payload.emoji.name))
+        role = discord.utils.get(guild.roles, name=data["emojis"].get(payload.emoji.name))
         if role is not None:
             member = guild.get_member(payload.user_id)
             if member is not None:

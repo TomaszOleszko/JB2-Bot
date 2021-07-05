@@ -37,5 +37,13 @@
         "type": 4,
         "required": false
     }
-  ]
+  ],
+
+  "emojis": {
+    "pepeclown": "Rust",
+    "pepeOK": "rocket",
+    "pepeStab": "CSGO",
+    "PepeYikes": "lol",
+    "irizchuPat": "the simsy cztery"
+    }
 }
