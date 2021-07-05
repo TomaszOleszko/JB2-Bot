@@ -12,35 +12,6 @@ intents = discord.Intents.all()
 client = discord.Client(intents=intents)
 slash = SlashCommand(client, sync_commands=True)
 
-options = [
-    {
-        "name": "start",
-        "description": "Początek przedziału",
-        "type": 4,
-        "required": False
-    },
-    {
-        "name": "stop",
-        "description": "Koniec przedziału",
-        "type": 4,
-        "required": False
-    }
-]
-options1 = [
-    {
-        "name": "dzien",
-        "description": "Piwo dnia",
-        "type": 5,
-        "required": False,
-    },
-    {
-        "name": "miesiac",
-        "description": "Piwo miesiace",
-        "type": 5,
-        "required": False,
-    }
-]
-
 emojis = {
     "pepeclown": "Rust",
     "pepeOK": "rocket",
