@@ -17,13 +17,13 @@ options = [
         "name": "start",
         "description": "Początek przedziału",
         "type": 4,
-        "required": False,
+        "required": False
     },
     {
         "name": "stop",
         "description": "Koniec przedziału",
         "type": 4,
-        "required": False,
+        "required": False
     }
 ]
 options1 = [
@@ -40,28 +40,7 @@ options1 = [
         "required": False,
     }
 ]
-piwa = [
-    (
-        'Kozel',
-        'piwa/Kozel.png'
-    ),
-    (
-        'Zatecki',
-        'piwa/zatecky.jpeg'
-    ),
-    (
-        'Namyslow',
-        'piwa/namyslow.png'
-    ),
-    (
-        'Warka',
-        'piwa/Warka.png'
-    ),
-    (
-        'Calsberg',
-        'piwa/Carlsberg.png'
-    )
-]
+
 emojis = {
     "pepeclown": "Rust",
     "pepeOK": "rocket",
@@ -69,14 +48,11 @@ emojis = {
     "PepeYikes": "lol",
     "irizchuPat": "the simsy cztery"
 }
-zdam = [
-    "  <:trolldog:801043177603727450>\n /|\ \n /\ \nZAPRASZAMY W NASTĘPNYM ROKU...",
-    "\  <:dogekek:801043201628700682> /\n     |\n   /\ \nJEDNAK NIEZDAJ JEST MIŁOSIERNY... TYM RAZEM..."
-]
+
 with open('Data/config.json',encoding="utf8") as f:
   data = json.load(f)
 
-@slash.slash(name="Piwo", description="Piwo dnia i Piwo miesiąca", guild_ids=[SERVER_ID], options=options1)
+@slash.slash(name="Piwo", description="Piwo dnia i Piwo miesiąca", guild_ids=[SERVER_ID], options=data["losu_options"])
 async def guess(ctx: SlashContext, dzien=True, miesiac=False):
     date_tuple = date.today().timetuple()
     if not dzien and not miesiac:
@@ -97,7 +73,7 @@ async def _test(ctx: SlashContext):
                    embed=discord.Embed(title="ZDAJ CZY NIEZDAJ, OTO JEST PYTANIE...\n" + (random.choice(data["zdam_message_content"]))))
 
 
-@slash.slash(name="Losu", description="Losowanko liczby", guild_ids=[SERVER_ID], options=options)
+@slash.slash(name="Losu", description="Losowanko liczby", guild_ids=[SERVER_ID], options=data["piwa_options"])
 async def guess(ctx: SlashContext, start=0, stop=10):
     rand = random.randint(start, stop)
     await ctx.send(content=f"Losu Losu --> {rand}")

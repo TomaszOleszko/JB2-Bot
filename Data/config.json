@@ -9,5 +9,33 @@
         "namyslow.png",
         "Warka.png",
         "Carlsberg.png"
+  ],
+  "piwa_options": [
+    {
+        "name": "dzien",
+        "description": "Piwo dnia",
+        "type": 5,
+        "required": false
+    },
+    {
+        "name": "miesiac",
+        "description": "Piwo miesiace",
+        "type": 5,
+        "required": false
+    }
+  ],
+  "losu_options": [
+    {
+        "name": "start",
+        "description": "Początek przedziału",
+        "type": 4,
+        "required": false
+    },
+    {
+        "name": "stop",
+        "description": "Koniec przedziału",
+        "type": 4,
+        "required": false
+    }
   ]
 }
