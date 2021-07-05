@@ -52,7 +52,7 @@ emojis = {
 with open('Data/config.json',encoding="utf8") as f:
   data = json.load(f)
 
-@slash.slash(name="Piwo", description="Piwo dnia i Piwo miesiąca", guild_ids=[SERVER_ID], options=data["losu_options"])
+@slash.slash(name="Piwo", description="Piwo dnia i Piwo miesiąca", guild_ids=[SERVER_ID], options=data["piwa_options"])
 async def guess(ctx: SlashContext, dzien=True, miesiac=False):
     date_tuple = date.today().timetuple()
     if not dzien and not miesiac:
@@ -73,7 +73,7 @@ async def _test(ctx: SlashContext):
                    embed=discord.Embed(title="ZDAJ CZY NIEZDAJ, OTO JEST PYTANIE...\n" + (random.choice(data["zdam_message_content"]))))
 
 
-@slash.slash(name="Losu", description="Losowanko liczby", guild_ids=[SERVER_ID], options=data["piwa_options"])
+@slash.slash(name="Losu", description="Losowanko liczby", guild_ids=[SERVER_ID], options=data["losu_options"])
 async def guess(ctx: SlashContext, start=0, stop=10):
     rand = random.randint(start, stop)
     await ctx.send(content=f"Losu Losu --> {rand}")
