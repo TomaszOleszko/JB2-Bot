@@ -15,6 +15,9 @@ slash = SlashCommand(client, sync_commands=True)
 with open('Data/config.json',encoding="utf8") as f:
   data = json.load(f)
 
+with open('prov.txt',encoding="utf8") as f:
+  proverby_data = json.load(f)  
+  
 @slash.slash(name="Piwo", description="Piwo dnia i Piwo miesiąca", guild_ids=[SERVER_ID], options=data["piwa_options"])
 async def guess(ctx: SlashContext, dzien=True, miesiac=False):
     date_tuple = date.today().timetuple()
@@ -41,7 +44,10 @@ async def guess(ctx: SlashContext, start=0, stop=10):
     rand = random.randint(start, stop)
     await ctx.send(content=f"Losu Losu --> {rand}")
 
-
+@slash.slash(name="Proverbs", description="Zdaje angielski ez",guild_ids=[SERVER_ID])
+async def proverbs_get(ctx: SlashContext):
+    await ctx.send(content=":)", file=discord.File(proverby_data))
+    
 @client.event
 async def on_raw_reaction_add(payload):
     message_id = payload.message_id
