@@ -13,10 +13,13 @@ client = discord.Client(intents=intents)
 slash = SlashCommand(client, sync_commands=True)
 
 with open('Data/config.json',encoding="utf8") as f:
-  data = json.load(f)
+  data = json.load(f) 
 
-with open('prov.txt',encoding="utf8") as f:
-  proverby_data = json.load(f)  
+proverbs = []
+with open('prov.txt', 'r') as line:
+	# Reads a specific line of text in the file. 
+	line_text = c.readline()
+  proverbs.append(line_text)
   
 @slash.slash(name="Piwo", description="Piwo dnia i Piwo miesiąca", guild_ids=[SERVER_ID], options=data["piwa_options"])
 async def guess(ctx: SlashContext, dzien=True, miesiac=False):
@@ -46,7 +49,10 @@ async def guess(ctx: SlashContext, start=0, stop=10):
 
 @slash.slash(name="Proverbs", description="Zdaje angielski ez",guild_ids=[SERVER_ID])
 async def proverbs_get(ctx: SlashContext):
-    await ctx.send(content=":)", file=discord.File(proverby_data))
+    string = ""
+    for _ in proverbs:
+      string += _   
+    await ctx.send(content=string)
     
 @client.event
 async def on_raw_reaction_add(payload):
