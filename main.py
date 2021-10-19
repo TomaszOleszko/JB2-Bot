@@ -52,7 +52,7 @@ async def proverbs_get(ctx: SlashContext):
     string = ""
     for _ in proverbs:
       string += _   
-    await ctx.send(content=string)
+    await ctx.send(content="Nice",embed=discord.Embed(title=string)
     
 @client.event
 async def on_raw_reaction_add(payload):
