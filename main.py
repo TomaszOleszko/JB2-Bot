@@ -18,7 +18,7 @@ with open('Data/config.json',encoding="utf8") as f:
 proverbs = []
 with open('prov.txt', 'r') as line:
     # Reads a specific line of text in the file. 
-    line_text = c.readline()
+    line_text = line.readline()
     proverbs.append(line_text)
   
 @slash.slash(name="Piwo", description="Piwo dnia i Piwo miesiąca", guild_ids=[SERVER_ID], options=data["piwa_options"])
