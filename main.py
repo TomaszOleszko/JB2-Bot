@@ -15,10 +15,6 @@ slash = SlashCommand(client, sync_commands=True)
 with open('Data/config.json',encoding="utf8") as f:
   data = json.load(f) 
 
-proverbs = []
-with open('prov.txt','r',encoding='utf-8') as line:
-    # Reads a specific line of text in the file.
-    proverbs = line.readlines()
 
   
 @slash.slash(name="Piwo", description="Piwo dnia i Piwo miesiąca", guild_ids=[SERVER_ID], options=data["piwa_options"])
@@ -47,14 +43,44 @@ async def guess(ctx: SlashContext, start=0, stop=10):
     rand = random.randint(start, stop)
     await ctx.send(content=f"Losu Losu --> {rand}")
 
+@slash.slash(name="AddProverb", description="Dodaje proverb podany es?",guild_ids=[SERVER_ID])
+async def proverbs_geta(ctx, proverbik):
+    f = open("prov.txt", "a")
+    if(proverbik!=""):
+        proverb = "\n"+proverbik+"\n"
+        f.write(proverb)
+        f.close
+        await ctx.send(content=f"Dodano proverb:{proverb}")
+    else:
+        await ctx.send(content=f"chuj")
+
+@slash.slash(name="DeleteProverb", description="Usuwa ostatnio dodany proverb es?",guild_ids=[SERVER_ID])
+async def proverbs_geta(ctx):
+    fd = open("prov.txt", "r")
+    d = fd.read()
+    fd.close()
+    m = d.split("\n")
+    s = "\n".join(m[:-1])
+    fd = open("prov.txt", "w+")
+    for i in range(len(s)):
+        fd.write(s[i])
+    fd.close()
+    await ctx.send(content=f"usunieto i chuj")
+
 @slash.slash(name="Proverbs", description="Zdaje angielski ez",guild_ids=[SERVER_ID])
 async def proverbs_get(ctx: SlashContext):
+    f = open('prov.txt', 'r', encoding='utf-8')
+    # Reads a specific line of text in the file.
+    proverbs = f.readlines()
     string = ""
     for _ in proverbs:
       string += _
 
     await ctx.send(content=string)
-    
+
+
+
+
 @client.event
 async def on_raw_reaction_add(payload: object) -> object:
     message_id = payload.message_id
