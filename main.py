@@ -45,14 +45,15 @@ async def guess(ctx: SlashContext, start=0, stop=10):
 
 @slash.slash(name="AddProverb", description="Dodaje proverb podany es?",guild_ids=[SERVER_ID])
 async def proverbs_geta(ctx, proverbik):
-    f = open("prov.txt", "a")
-    if(proverbik!=""):
-        proverb = "\n"+proverbik+"\n"
+    f = open("prov.txt", "a", encoding='utf-8')
+    proverb = proverbik
+    if proverb.find('-') != -1 and proverb.find('-') != len(proverb)-1:
+        proverb = "\n"+proverbik
         f.write(proverb)
         f.close
         await ctx.send(content=f"Dodano proverb:{proverb}")
     else:
-        await ctx.send(content=f"chuj")
+        await ctx.send(content=f"podaj w formacie english version - polish version")
 
 @slash.slash(name="DeleteProverb", description="Usuwa ostatnio dodany proverb es?",guild_ids=[SERVER_ID])
 async def proverbs_geta(ctx):
