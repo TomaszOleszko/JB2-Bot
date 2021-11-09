@@ -16,8 +16,8 @@ with open('Data/config.json',encoding="utf8") as f:
   data = json.load(f) 
 
 proverbs = []
-with open('prov.txt', 'r') as line:
-    # Reads a specific line of text in the file. 
+with open('prov.txt','r',encoding='utf-8') as line:
+    # Reads a specific line of text in the file.
     proverbs = line.readlines()
 
   
@@ -51,11 +51,12 @@ async def guess(ctx: SlashContext, start=0, stop=10):
 async def proverbs_get(ctx: SlashContext):
     string = ""
     for _ in proverbs:
-      string += _   
-    await ctx.send(content="Nice",embed=discord.Embed(title=string)
+      string += _
+
+    await ctx.send(content=string)
     
 @client.event
-async def on_raw_reaction_add(payload):
+async def on_raw_reaction_add(payload: object) -> object:
     message_id = payload.message_id
     if message_id == 857969748931248159:
         guild_id = payload.guild_id
